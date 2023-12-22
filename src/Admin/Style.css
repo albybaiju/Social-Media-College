@@ -1,0 +1,51 @@
+.paper{
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+
+}
+
+.card{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 355px;
+    background-color: rgba(226, 231, 213, 0.929) !important;
+    
+}
+.button{
+    width:100px;
+    height:40px;
+    background-color:#BF9A8E!important;
+    margin-left: 70px !important;
+    
+}
+.aad{
+    color:#BF9A8E;
+    margin-top: 30px !important;
+    margin-left: 28px !important;
+
+    
+}
+.text{
+    border: 2px ,solid !important;
+    border-color: black !important;
+}
+
+.box{
+     display: flex;
+     
+
+}
+
+.tablerow{
+   
+    -webkit-text-fill-color: aliceblue !important;
+    background-color: black;  
+}
