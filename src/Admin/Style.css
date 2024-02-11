@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 800px;
     padding: 20px;
 
 }
@@ -14,9 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 350px;
-    height: 355px;
-    background-color: rgba(226, 231, 213, 0.929) !important;
+     
     
 }
 .button{
@@ -35,11 +33,13 @@
 }
 .text{
     border: 2px ,solid !important;
-    border-color: black !important;
+    border-color: rgb(205, 201, 201) !important;
 }
 
 .box{
      display: flex;
+     flex-direction: column;
+     align-items: center;
      
 
 }
@@ -48,4 +48,35 @@
    
     -webkit-text-fill-color: aliceblue !important;
     background-color: black;  
+}
+
+
+
+.containerh{
+    width: 100%;
+    display: flex;
+
+}
+
+/* 
+.boxoverflow{
+    overflow: scroll;
+}
+
+.boxoverflow::-webkit-scrollbar{
+    display:none;
+} */
+
+
+.card-club{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.text-club{
+width: 50%;
 }

@@ -1,0 +1,13 @@
+.nav{
+
+    display: flex;
+    
+    }
+    
+    .bars{
+        display: flex;
+        flex-direction: row;
+    
+    }
+
+

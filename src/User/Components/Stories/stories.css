@@ -1,0 +1,38 @@
+.stories {
+  width: 800px;
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+  margin-bottom: 30px;
+  overflow-x: scroll;
+}
+.stories::-webkit-scrollbar {
+  display: none;
+}
+
+.story {
+  width: 150px;
+  border-radius: 10px;
+  margin: 10px;
+  position: relative;
+}
+
+.spanstory {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-weight: bold;
+  color: aliceblue;
+}
+
+.storybutton {
+  position: absolute;
+  bottom: 35px;
+  left: 10px;
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+

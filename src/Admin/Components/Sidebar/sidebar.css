@@ -1,0 +1,96 @@
+.sidebar {
+  width: 210px;
+  background-color: white;
+  min-height: 100vh !important;
+  border-radius: 10px;
+  position: sticky;
+  top: 10px;
+  font-weight: 600px;
+  margin-left: 6px;
+
+  margin-top: 4px;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(105, 102, 102, 0.75);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(110, 103, 103, 0.75);
+  box-shadow: 0px 0px 5px 1px rgba(169, 168, 168, 0.75);
+}
+
+.top {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  color: lightskyblue;
+  font-weight: bolder;
+  font-size: 21px;
+}
+
+.hr {
+  height: 0;
+  border: 0.5px solid red;
+}
+.center {
+  padding-left: 10px;
+}
+
+.ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.titles {
+  font-weight: bolder;
+  font-size: 15px;
+  color: lightskyblue;
+  margin-bottom: 20px;
+}
+.li {
+  display: flex;
+  align-items: center;
+  padding: 7px;
+}
+
+.li:hover {
+  width: 164px;
+  background-color: lightskyblue;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  font-size: 17px;
+}
+
+.icons {
+  font-size: 40px;
+  color: black;
+}
+
+.span {
+  padding: 4px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.coloroption {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.coloroption:nth-child(1) {
+  background-color: aliceblue;
+}
+.coloroption:nth-child(2) {
+  background-color: black;
+}

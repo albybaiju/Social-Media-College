@@ -1,0 +1,53 @@
+.navbarcomp{
+ width: 96%;
+ display:flex;
+ justify-content: space-between;
+ align-items: center;
+ position: sticky;
+ top: 0;
+ padding: 10px 20px;
+ height: 60px;
+ border-bottom: 1px solid grey;
+ background-color: white;
+ z-index: 10000;
+}
+
+.leftnav{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.searchbar{
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.rightnav{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.span{
+    color: grey;
+}
+
+.searchinput{
+    width: 300px !important;
+    height: 30px !important;
+    border-radius: 20px;
+    font-size: 16px;
+    padding-left: 20px;
+}
+

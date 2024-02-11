@@ -1,0 +1,66 @@
+.leftbar{
+flex: 2;
+position: sticky;
+top: 81px;
+height: calc(100vh - 81px);
+overflow: scroll;
+-webkit-box-shadow: 6px 0px 6px -7px rgba(0,0,0,0.75);
+-moz-box-shadow: 6px 0px 6px -7px rgba(0,0,0,0.75);
+box-shadow: 6px 0px 6px -7px rgba(0,0,0,0.75);
+background-color: white;
+}
+
+.leftbar::-webkit-scrollbar{
+    display: none;
+    
+
+}
+
+.container{
+
+padding: 20px;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user{
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.img{
+width: 20px;
+height: 20px;
+border-radius: 50%;
+object-fit: cover;
+}
+
+
+
+.item{
+    display: flex;
+    align-items: center;
+    gap: 100px;
+
+
+}
+
+.item:hover{
+    background-color: rgb(208, 230, 230);
+
+}
+
+.hr{
+    margin: 10px 0;
+    border: none;
+    height: 0.5px;
+    background-color: lightgray;
+
+}

@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  IconButton,
   Paper,
   Stack,
   Table,
@@ -16,18 +17,44 @@ import {
   Typography,
 } from "@mui/material";
 import "./Style.css";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../config/FireBase";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UpdateIcon from "@mui/icons-material/Update";
 
 const Category = () => {
   const [category, setCategory] = useState("");
   const [showcategory, setShowCategory] = useState([]);
+  const [check,setCheck] = useState('')
+
+
   const handleSubmit = async (c) => {
     c.preventDefault();
-    const docRef = await addDoc(collection(db, "Category"), { category });
+
+   if(check){
+    const updateCategory = doc(db, "Category", check)
+    await updateDoc(updateCategory,{ category })
+
+   }
+   else{
+  
+     await addDoc(collection(db, "Category"), { category });
+     
+   }
+
+
+   
     setCategory("");
     fetchData();
-    console.log(docRef);
+    
   };
 
   const fetchData = async () => {
@@ -40,14 +67,31 @@ const Category = () => {
     console.log(querySnapshotData);
   };
 
+  const deleteData = async (Id) => {
+    await deleteDoc(doc(db, "Category", Id));
+    fetchData();
+    console.log(Id);
+  };
+
+
+  const getData = async (Id) =>{
+
+    const DocRef = doc(db, "Category", Id);
+    const DocSnap= (await getDoc(DocRef)).data()
+    setCategory(DocSnap.category)
+    setCheck(Id)
+    
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <Box className="box" component="form" onSubmit={handleSubmit}>
-      <Paper className="paper" elevation={3}>
-        <Card className="card" elevation={4}>
+    
+      
+        <Card className="card" elevation={3}>
           <div>
             <CardContent>
               <Typography
@@ -71,8 +115,8 @@ const Category = () => {
             </CardContent>
           </div>
         </Card>
-        <Box sx={{ width: "60%" }}>
-          <TableContainer component={Paper} sx={{ marginTop: 5 }} elevation={3}>
+        <Box sx={{ width: "100%" }}>
+          <TableContainer component={Paper} sx={{ marginTop: 5  }} elevation={3}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -88,15 +132,36 @@ const Category = () => {
                       {key + 1}
                     </TableCell>
                     <TableCell align="center">{row.category}</TableCell>
-                    <TableCell align="center">Delete</TableCell>
+                    <TableCell align="center">
+                      <IconButton
+                        aria-label="delete"
+                        color="primary"
+                        onClick={() => deleteData(row.Id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+
+                    <TableCell align="center">
+                      <IconButton
+                        aria-label="update"
+                        color="primary"
+                        onClick={() => getData(row.Id)}
+                      >
+                        <UpdateIcon />
+                      </IconButton>
+                    </TableCell>
+
+
                   </TableRow>
                 ))}
+
               </TableBody>
             </Table>
           </TableContainer>
         </Box>
-      </Paper>
     </Box>
+   
   );
 };
 export default Category;

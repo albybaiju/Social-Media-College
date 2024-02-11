@@ -1,0 +1,14 @@
+.homepage{
+display: flex;
+}
+ 
+.homepagecontainer{
+   
+    flex:6 ;
+}
+
+.widgets{
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}

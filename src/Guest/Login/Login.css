@@ -1,0 +1,79 @@
+
+
+.login{
+    height: 100vh;
+    background: linear-gradient(rgb(101, 95, 95),rgba(84, 56, 56, 0.796)),url("C:\Users\user\Documents\5 semester\it an env\unnamed.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.card-login{
+    width: 100px;
+    display: flex;
+    border-radius: 10px;
+    min-height: 500px;
+}
+
+.left-login{
+    flex: 1;
+    border-radius: 0px;
+    background-size: cover;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: rgb(246, 124, 10);
+}
+.right-box-login{
+    margin-top: 60px;
+    height: 70%;
+    flex: 1;
+    padding: 50px;
+    display: flex;
+
+}
+.h1{
+    margin-top: 10px;
+    font-size: 100px;
+    line-height: 100px;
+
+}
+
+.button{
+    width: 50%;
+    height: 40px;
+    border-radius: 50px;
+   
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+   
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.input{
+    border: none;
+    border-bottom: 1px solid grey;
+
+}
+.logbutton{
+    margin-left: 60px;
+    margin-top: 30px;
+    width: 50%;
+    height: 40px;
+    font-weight: bold;
+    padding: 5px;
+    border: none;
+    background-color: rgb(246, 124, 10);
+    border-radius: 50px;
+
+}

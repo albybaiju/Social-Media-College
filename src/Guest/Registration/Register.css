@@ -1,0 +1,99 @@
+.register{
+    height: 100vh;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-register{
+  width: 400px;
+  height: 500px;
+  margin-left: 200px;
+  display: flex;
+  flex-direction:column ;
+  justify-content: right;
+  padding: 40px;
+  gap: 40px;
+}
+
+.textfields{
+
+    width: 200px;
+
+}
+
+
+
+ 
+  
+/*     
+}
+
+.left{
+    flex: 1;
+    margin-top: 170px;
+    margin-left: 160px;
+    border-radius: 0px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: rgb(246, 124, 10);
+}
+.right{
+    width: 600px;
+    margin-bottom: 55px;
+    height: 620px;
+    border: 1px solid ;
+    border-radius: 10px;
+    background-color: white;
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction:column ;
+    gap: 30px;
+}
+.h1{
+    margin-top: 10px;
+    font-size: 100px;
+    line-height: 100px;
+
+}
+
+.button{
+    width: 50%;
+    height: 40px;
+    border-radius: 50px;
+   
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+   
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+}
+
+.input{
+    border: none;
+    border-bottom: 1px solid grey;
+
+}
+.regbutton{
+    margin-left: 60px;
+    margin-top: 30px;
+    width: 50%;
+    height: 40px;
+    font-weight: bold;
+    padding: 5px;
+    border: none;
+    background-color: rgb(246, 124, 10);
+    border-radius: 50px;
+
+} */
