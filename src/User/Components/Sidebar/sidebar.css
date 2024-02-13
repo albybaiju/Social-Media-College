@@ -2,7 +2,7 @@
 flex: 2;
 position: sticky;
 top: 81px;
-height: calc(100vh - 81px);
+height: calc(100vh - 82px);
 overflow: scroll;
 -webkit-box-shadow: 6px 0px 6px -7px rgba(0,0,0,0.75);
 -moz-box-shadow: 6px 0px 6px -7px rgba(0,0,0,0.75);

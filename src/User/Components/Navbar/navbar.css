@@ -1,15 +1,16 @@
 .navbarcomp{
- width: 96%;
- display:flex;
+ width: 98.7%;
+ height: 58px; 
+ padding: 10px;
+ display: flex;
  justify-content: space-between;
- align-items: center;
+ background-color: white;
  position: sticky;
  top: 0;
- padding: 10px 20px;
- height: 60px;
- border-bottom: 1px solid grey;
  background-color: white;
- z-index: 10000;
+ z-index: 999;
+ border-bottom: 1px solid;
+
 }
 
 .leftnav{

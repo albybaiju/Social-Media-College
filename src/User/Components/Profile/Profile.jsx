@@ -185,6 +185,7 @@ const Profile = () => {
                 width: "836px",
                 height: "310px",
                 position: "relative",
+                backgroundColor:"lightgray"
               }}
             />
             <Avatar

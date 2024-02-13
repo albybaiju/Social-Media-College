@@ -8,19 +8,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
 import "./navbar.css";
-import { MenuItem, Popover, Select, Typography } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
+
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
