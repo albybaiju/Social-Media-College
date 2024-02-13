@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GridViewIcon from "@mui/icons-material/GridView";
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,7 +19,6 @@ const Navbar = () => {
       <div className="leftnav">
         <Link to="/User/" style={{textDecoration:"none" ,color:"black"}}>
           <span style={{ textDecoration: "none", fontSize: "20px" }}>
-            {" "}
              /DConnect
           </span>
         </Link>

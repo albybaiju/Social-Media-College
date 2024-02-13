@@ -1,23 +1,21 @@
 import {
   Avatar,
-  Backdrop,
   Box,
   Button,
   Card,
   CardContent,
   CardMedia,
   LinearProgress,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { and, doc, getDoc, updateDoc } from "firebase/firestore";
+import {  doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db, storage } from "../../../config/FireBase";
 import { styled } from "@mui/material/styles";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import CircularProgress from "@mui/material/CircularProgress";
+
 
 
 
@@ -30,8 +28,7 @@ const EditProfile = () => {
   const [currPhoto, setcurrentPhoto] = useState("");
   const [currcover, setcurrentCoverPhoto] = useState("");
   const [loaderbut, setLoaderBut] = useState("");
-  const [nopropic, setNoprofpic] = useState("");
-  const [nocoverpic, setNocoverpic] = useState("");
+
 
   const selectPhoto = async (e) => {
     const photo = e.target.files[0];
@@ -137,7 +134,7 @@ const EditProfile = () => {
         user_profilepic: url,
         user_coverpic: coverurl,
       });
-      alert("SuccessFully Updated");
+      alert("Profile Updated");
     }
 
     setLoaderBut(false);
@@ -166,21 +163,11 @@ const EditProfile = () => {
       setBio(fetchData.user_bio);
     } else {
       setBio("");
-    }
+    } 
 
     setUsername(fetchData.user_name);
     setcurrentCoverPhoto(fetchData.user_coverpic);
     setcurrentPhoto(fetchData.user_profilepic);
-
-    // if(currPhoto == 0 && currcover == 0){
-    //   console.log("NO Profile");
-    // }
-    // else if(currcover == 0 && currPhoto){
-    //   console.log("no cover");
-    // }
-    // else if( currPhoto == 0 && currcover){
-    //   console.log("NO propic");
-    // }
   };
 
   useEffect(() => {
