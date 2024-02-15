@@ -27,7 +27,9 @@ import {
   doc,
   getDoc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../config/FireBase";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -38,6 +40,10 @@ const Place = () => {
   const [check, setCheck] = useState("");
   const [showdistrict, setShowDistrict] = useState([]);
   const [district, setDistrict] = useState("");
+  const [distr, setDistricts] = useState([]);
+
+
+ 
 
   const handleSubmit = async (a) => {
     a.preventDefault();
@@ -78,7 +84,7 @@ const Place = () => {
         ...doc.data(),
       }));
 
-      // Perform inner join based on a common field (e.g., districtId)
+      //  Perform inner join based on a common field (e.g., districtId)
       const joinedData = placeData
         .map((place) => ({
           ...place,
@@ -89,6 +95,13 @@ const Place = () => {
         .filter((place) => place.districtInfo && place.districtInfo.district);
 
       setShowPlace(joinedData);
+
+      const tets = districtData.map((dist) => ({
+        ...dist,
+        place: placeData.filter((place) => place.district === dist.id),
+      }));
+      console.log(tets);
+      setDistricts(tets);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -130,17 +143,17 @@ const Place = () => {
           </Typography>
           <CardContent>
             <Stack spacing={2} direction="column">
-              <FormControl >
+              <FormControl>
                 <InputLabel id="demo-simple-select-label">District</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="District"
-                  onChange={(e) => setDistrict(e.target.value)}
+                  onChange={(e) => setDistrict(e.target.value) }
                   value={district}
                 >
                   {showdistrict.map((row, key) => (
-                    <MenuItem key={key} value={row.Id}>
+                    <MenuItem key={key} value={row.Id} >
                       {row.district}
                     </MenuItem>
                   ))}

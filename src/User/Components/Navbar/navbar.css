@@ -16,7 +16,8 @@
 .leftnav{
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 160px;
+   
 }
 
 .searchbar{

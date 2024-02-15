@@ -82,6 +82,7 @@ const Subcategory = () => {
           (subcategory) => subcategory.CategoryInfo && subcategory.CategoryInfo.category
         )
       setShowSubCategory(joinData)
+      console.log(joinData)
     } 
     catch (error) {
       console.error("Error fetching data:", error)
