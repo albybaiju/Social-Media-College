@@ -60,7 +60,6 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoaderBut(true);
     const uid = sessionStorage.getItem("uid");
 
     if (photo == 0 && coverPhoto !== 0) {
@@ -137,7 +136,7 @@ const EditProfile = () => {
       alert("Profile Updated");
     }
 
-    setLoaderBut(false);
+   
   };
 
   const VisuallyHiddenInput = styled("input")({

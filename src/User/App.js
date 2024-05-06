@@ -14,17 +14,24 @@ import Profile from "./Components/Profile/Profile";
 import EditProfile from "./Components/Editprofile/Editprofile";
 import Settings from "./Components/Settings/Settings"
 import ChangePassword from "./Components/ChangePassword/ChangePassword";
+import Notifications from "./Components/Notifications/Notifications"; 
+import SingleClubJo from "./Clubs/SingleClubsJo";
+
+
 
 
 
 const App = () => {
   return (
     <div>
-        <div>
+        <div style={{display:"flex",marginLeft:"20px",justifyContent:"center"}}>
+        <Sidebar  />
+     
+        <div style={{display:"flex",flexDirection:"column" }}>
         <Navbar />
-        <div style={{ display: "flex" }}>
-          <Sidebar />
-          <div style={{ flex: 6 }}>
+       
+          <div style={{ width:"751px",
+    padding: "23px"}}>
             <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path="/Clubuser" element={<Clubuser/>}/>
@@ -36,14 +43,16 @@ const App = () => {
               <Route path="/Editprofile/:id" element={<EditProfile/>}/>
               <Route path="/Settings" element={<Settings/>}/>
               <Route path="/ChangePassword" element={<ChangePassword/>}/>
-
-
-
+              <Route path="/Notifications" element={<Notifications/>}/>
+              <Route path="/SingleClubJo" element={<SingleClubJo/>}/>
 
              </Routes>
           </div>
+          </div>
+          <div style={{marginLeft:"0px"}}>
           <Rightbar/>
-        </div>
+          </div>
+        
       </div>
     </div>
   );

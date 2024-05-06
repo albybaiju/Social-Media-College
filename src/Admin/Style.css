@@ -80,3 +80,35 @@
 .text-club{
 width: 50%;
 }
+.search-card-ad{
+    margin: 3px;
+    margin-left:15px ;
+    width: 320px;
+    /* display:flex;
+    flex-direction:column; */
+    height: 169px;
+    padding:1px !important;
+    gap:20px;
+    overflow: scroll !important
+   
+
+}
+
+.search-card-ad::-webkit-scrollbar{
+display: none;
+}
+
+
+.search-user-box-ad{
+    width: 320px;
+    display:flex;
+    padding:10px;
+    gap:10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.search-user-box-ad:hover{
+    background-color: #d9d9da;
+    border-radius: 10px;
+}

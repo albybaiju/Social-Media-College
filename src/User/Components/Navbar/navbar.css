@@ -1,15 +1,16 @@
 .navbarcomp{
- width: 98.7%;
+ margin-left: 100px;   
+ width: 400px;
  height: 58px; 
  padding: 10px;
  display: flex;
- justify-content: space-between;
- background-color: white;
+ 
  position: sticky;
  top: 0;
- background-color: white;
  z-index: 999;
+ background-color: white;
  border-bottom: 1px solid;
+
 
 }
 

@@ -45,7 +45,8 @@ const ClubPost = () => {
   const [clubfollowgr,setFollowgr]=useState(false)
   const [clubpostgr,setPostgr]=useState(false)
   const[postcount,setPostcount]=useState("")
-
+ const[adpic,setClubAdPic]=useState("")
+  
 
 
 
@@ -82,11 +83,14 @@ const PostsCount = async() =>{
     const clubDetailsData = (await getDoc(clubReference)).data();
     setClubProfilename(clubDetailsData.club_name);
     setClubProfilemotto(clubDetailsData.club_motto);
-    setClubProfilePhoto(clubDetailsData.club_Photo);
+    setClubProfilePhoto(clubDetailsData.club_photo);
+   
+
 
     const AdminReference = doc(db, "users", clubDetailsData.club_admin);
     const adminDetails = (await getDoc(AdminReference)).data();
     setClubAdmin(adminDetails.user_name);
+    setClubAdPic(adminDetails.user_profilepic)
     
 
     const categoryReference = doc(
@@ -125,14 +129,13 @@ const PostsCount = async() =>{
     });
 
     const timestamp = serverTimestamp();
-    const helllo = await addDoc(collection(db, "Posts"), {
+     await addDoc(collection(db, "Posts"), {
       post_caption: caption,
       user_id: uid,
       post_photo: url,
       club_id: id,
       post_time: timestamp,
     });
-    console.log(helllo);
     SetCaption("");
     SetPhoto("");
     fetchPost();
@@ -217,6 +220,8 @@ const PostsCount = async() =>{
     width: 1,
   });
 
+  
+
   useEffect(() => {
     fetchPost();
     checkAdmin();
@@ -230,32 +235,33 @@ const PostsCount = async() =>{
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Card sx={{ m: 1, objectFit: "cover" }}>
           <Box>
-            <CardMedia
-              image="https://th.bing.com/th/id/OIP.rvSWtRd_oPRTwDoTCmkP5gHaE8?rs=1&pid=ImgDetMain"
-              style={{
+          <CardMedia
+              image={clubProfilePhoto}
+              sx={{
                 width: "836px",
-                height: "300px",
+                height: "350px",
                 position: "relative",
-                objectFit: "cover",
+                backgroundColor:"lightgray"
               }}
             />
+        
 
-            <Avatar
-              src={clubProfilePhoto}
+            {/* <Avatar
+              src=
               alt=""
               sx={{
                 position: "absolute",
                 top: 340,
-                left: 310,
+                left: 364,
                 width: "120px",
                 height: 120,
                 border: "3px solid white ",
               }}
-            />
+            /> */}
           </Box>
 
-          <Box sx={{ mt: 10, ml: 6 }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Box sx={{ mt: 4,display:'flex',alignItems:'center',flexDirection:"column" }}>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               {clubProfilename}
             </Typography>
             <Typography sx={{color:'grey',}}>{clubcategory}</Typography>
@@ -275,12 +281,11 @@ const PostsCount = async() =>{
 
             <Box sx={{ mt: 2,mb:2,display:'flex',flexDirection:"column",gap:2,justifyContent:"center" }}>
               <Box sx={{display:'flex',alignItems:'center',gap:1}}>
-                Motto:
               <Typography sx={{fontWeight:"bold"}}>{clubProfilemotto}</Typography></Box>
-              <Box sx={{display:"flex",alignItems:'center',gap:1}}>
+              <Box sx={{display:"flex",alignItems:'center',gap:1,ml:16}}>
                 Admin:
-                <Box sx={{display:'flex',alignItems:'center'}}>
-                <Avatar src="" alt="" sx={{width:"20px",height:"20px"}}/>
+                <Box sx={{display:'flex',alignItems:'center',gap:1}}>
+                <Avatar src={adpic} alt="" sx={{width:"20px",height:"20px"}}/>
                 <Typography sx={{fontWeight:"bolder"}}>{clubAdmin}</Typography>
                 </Box>
               </Box>

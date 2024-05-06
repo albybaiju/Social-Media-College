@@ -1,0 +1,30 @@
+/* styles.css */
+
+.user-info-box {
+    display: flex;
+    background-color: #ffffff;
+    border: 1px solid #e6740f;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-stats {
+  }
+  
+  .stat {
+
+    margin: 10px;
+    display: flex;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .value {
+    color: #121213; /* Change color as needed */
+  }
+  

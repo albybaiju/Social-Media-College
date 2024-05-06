@@ -32,7 +32,8 @@ const Comments = ({ props, fetchCommentcount }) => {
 
   const { id } = props;
   const timestamp = serverTimestamp();
-
+  
+console.log();
 
 
   const deleteComment = async (id) => {
@@ -53,13 +54,17 @@ const Comments = ({ props, fetchCommentcount }) => {
   }
 
   const addComments = async () => {
-  
+
+    const postuid= props.user_id
+
 
     await addDoc(collection(db, "Comments"), {
+      post_userid : postuid,
       post_id: id,
       user_id: uid,
       comment_content: comment,
       comment_time: timestamp,
+
     });
     setComment("");
     fetchComments();

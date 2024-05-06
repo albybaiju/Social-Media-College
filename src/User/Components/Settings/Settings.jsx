@@ -10,46 +10,47 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import LockResetIcon from '@mui/icons-material/LockReset';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
 
 const Settings = () => {
+  const uid=sessionStorage.getItem("uid")
   return (
     <Box>
-      <Typography variant="h4" sx={{ml:1}}>Settings</Typography>
+      <Typography variant="h4" sx={{m:2}}>Settings</Typography>
       <Box>
-        <TableContainer sx={{width:800,m:2}}>
+        <TableContainer sx={{width:800,m:3}}>
           <Table  aria-label="simple table">
-            <TableHead>
+
+
+         
               <TableRow>
-                <TableCell><Typography sx={{fontSize:16}}>Edit Profile</Typography></TableCell>
+              <TableCell>
+              <Link to={`/User/Editprofile/${uid}`} style={{textDecoration:'none',color:"black"}}>
+                <Box sx={{display:"flex",alignItems:"center",gap:1}}>
+                <EditSharpIcon/> 
+                <Typography sx={{fontSize:16}}>Edit Profile</Typography>
+                </Box>
+                </Link>
+                </TableCell>
               </TableRow>
-            </TableHead>
+            
 
 
             <TableHead>
               <TableRow>
                 <TableCell >
                   <Link to="/User/ChangePassword" style={{textDecoration:"none",color:'black'}}>
-                  <Typography sx={{fontSize:16}}>Change Password</Typography>
+                  <Box sx={{display:"flex",alignItems:"center",gap:1}}>
+                  <LockResetIcon/>
+                  <Typography sx={{fontSize:"17px"}}>
+                    Change Password
+                  </Typography>
+                  </Box>
                   </Link>
                   </TableCell>
               </TableRow>
             </TableHead>
-
-
-            <TableHead>
-              <TableRow>
-                <TableCell><Typography sx={{fontSize:16}}>Others</Typography></TableCell>
-              </TableRow>
-            </TableHead>
-
-
-
-       
-
-
-
-
-
 
 
           </Table>

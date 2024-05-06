@@ -27,9 +27,18 @@ import {
   query,
   where,
   serverTimestamp,
+  orderBy,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SinglePost from "../Components/SinglePost/SinglePost";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+import CircularProgress from '@mui/material/CircularProgress';
+import Home from "../Home/Home";
 const Addpost = () => {
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -46,25 +55,33 @@ const Addpost = () => {
   const [caption, SetCaption] = useState("");
   const [photo, SetPhoto] = useState([]);
   const [posts, SetPost] = useState([]);
-  
-  const generateUniqueFileName = (uid, originalFileName) => {
-    const timestamp = new Date().getTime();
-    const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
-    const uniqueName = `${uid}_${timestamp}_${randomString}_${originalFileName}`;
-    return uniqueName;
-  };
+  const [userpic, SetUserPic] = useState("");
+  const [loading, setLoading] = useState("");
 
-  const fetchPost = async () => {
+
+  const fetchUser = async() =>{
+
+const uid = sessionStorage.getItem('uid')
+
+const userRef = doc(db,"users",uid)
+const userData= (await getDoc(userRef)).data()
+SetUserPic(userData.user_profilepic)
+
+
+  }
+
+
+
+  const fetchPosts = async () => {
     const uid = sessionStorage.getItem("uid");
 
-    const q = query(collection(db, "Posts"), where("user_id", "==", uid));
+    const q = query(collection(db, "Posts"), where("user_id", "==", uid),orderBy("post_time","desc"));
 
     const querySnapshot = await getDocs(q);
     const qData = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-
 
     const user = await getDocs(collection(db, "users"));
     const userData = user.docs.map((doc) => ({
@@ -110,7 +127,7 @@ const Addpost = () => {
         return {
           ...post,
           userInfo: userInfo,
-          clubInfo:clubInfo,
+          clubInfo: clubInfo,
           formattedTimeDifference: formattedTimeDifference,
         };
       })
@@ -120,39 +137,67 @@ const Addpost = () => {
     console.log(joinedData);
   };
 
+  const generateUniqueFileName = (uid, originalFileName) => {
+    const timestamp = new Date().getTime();
+    const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
+    const uniqueName = `${uid}_${timestamp}_${randomString}_${originalFileName}`;
+    return uniqueName;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+  
+
     const uid = sessionStorage.getItem("uid");
+    setLoading(true)
 
-    const metadata = {
-      contentType: "image/jpeg",
+    if(photo != ""){
+
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+  
+      const uniqueFileName = generateUniqueFileName(uid, photo.name);
+      const storageRef = ref(storage, "images/" + uniqueFileName);
+      await uploadBytesResumable(storageRef, photo, metadata);
+      const url = await getDownloadURL(storageRef).then((downloadURL) => {
+        return downloadURL;
+      });
+
+      const timestamp = serverTimestamp();
+  
+  
+      await addDoc(collection(db, "Posts"), {
+        post_caption: caption,
+        post_photo: url,
+        user_id: uid,
+        post_time: timestamp,
+      });
+  
+      SetPhoto("");
+      SetCaption("");
+      fetchPosts();
     }
-    
-    const uniqueFileName = generateUniqueFileName(uid , photo.name)
-    const storageRef = ref(storage, "images/" + uniqueFileName);
-    await uploadBytesResumable(storageRef, photo, metadata)
-    const url = await getDownloadURL(storageRef).then((downloadURL) => {
-      return downloadURL;
-    });
 
-    console.log(url);
-    const timestamp = serverTimestamp();
-
-    await addDoc(collection(db, "Posts"), {
-      post_caption: caption,
-      post_photo: url,
-      user_id: uid,
-      post_time: timestamp,
-    });
-
-    SetPhoto("");
-    SetCaption("");
-    fetchPost();
+    else{
+      const timestamp = serverTimestamp();
+      await addDoc(collection(db, "Posts"), {
+        post_caption: caption,
+        user_id: uid,
+        post_time: timestamp,
+      });
+      SetCaption("");
+      fetchPosts();
+    }
+    alert("Post Uploaded!")
+    setLoading(false)
+      
   };
 
   useEffect(() => {
-    fetchPost();
+    fetchPosts();
+    fetchUser()
   }, []);
 
   return (
@@ -162,75 +207,102 @@ const Addpost = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          my: 10,
         }}
       >
-        <Card
-          sx={{
-            height: "130px",
-            borderRadius: "10px",
-            display: "flex",
-          }}
-          elevation={3}
-        >
-          <Box
-            sx={{
-              m: 5,
-              ml: 10,
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-            }}
-            component="form"
-            onSubmit={handleSubmit}
-          >
-            <Box>
-              <Avatar src="" alt="" />
-            </Box>
-
-            <Box
+            <Card
+             component="form"
+             onSubmit={handleSubmit}
               sx={{
-                width: "420px",
-                minHeight: "30px",
-                border: "1px solid",
-                pl: 4,
-                pt: 1,
-                pb: 1,
-                p: 2,
-                borderRadius: "50px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "4px",
+                height: 100,
+                width: 717,
+                p: 1,
               }}
             >
-              <Input
-                onChange={(e) => SetCaption(e.target.value)}
-                placeholder="whats on your mind"
-                value={caption}
-                sx={{ width: "390px", border: "none", ml: "10px" }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      component="label"
-                      onChange={(e) => SetPhoto(e.target.files[0])}
-                    >
-                      <AttachFileIcon />
-                      <VisuallyHiddenInput type="file" />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Box>
+              <Box>
+                <Avatar src={userpic} alt="" sx={{width:50,height:50}} />
+              </Box>
 
-            <Button variant="contained" endIcon={<SendIcon />} type="submit">
-              POST
-            </Button>
+              <Box
+                sx={{
+                  width: "400px",
+                  minHeight: "30px",
+                  borderRadius: "25px",
+                  pl: 3,
+                  pr: 3,
+                  pb: 1,
+                  pt: 2,
+                  backgroundColor: "#EAEAEA",
+                  position: "relative",
+                }}
+              >
+                <Input
+                  onChange={(e) => SetCaption(e.target.value)}
+                  placeholder="whats on your mind..."
+                  value={caption}
+                  sx={{ width: "398px", border: "none" }}
+                  endAdornment={
+                    <label htmlFor="upload-photo">
+                      <CameraAltOutlinedIcon
+                        sx={{
+                          cursor: "pointer",
+                          border: "1px solid",
+                          padding: 0.5,
+                          borderRadius: "10px",
+                          transition: "background-color 0.3s ease",
+                          "&:hover": {
+                            backgroundColor: "#DEDADA"
+                          }
+                        }}
+                      />
+                
+                      <input
+                        id="upload-photo"
+                        type="file"
+                        onChange={(e) => SetPhoto(e.target.files[0])}
+                        style={{ display: "none" }}
+                      />
+                    </label>
+                  }
+                />
+              </Box>
+          
+    
+            <Button variant="contained" type="submit">
+            {loading ? <CircularProgress sx={{width:40,height:40}}/> :"POST"}  
+          </Button>
+            
+      
+             
+              {/* <label htmlFor="upload-photo">
+            
+                <CameraAltOutlinedIcon
+                  sx={{ position: "absolute",top:73, right: 199,cursor:"pointer",border:"1px solid",padding:0.5,borderRadius:"10px",
+                
+                  transition: "background-color 0.3s ease", // Smooth transition for background color change
+                  "&:hover": {
+                    backgroundColor: "#DEDADA" // Change background color to grey when hovered >
+                
+                
+                }}}
+                /> */}
+
+               
+                {/* <input
+                  id="upload-photo"
+                  type="file"
+                  onChange={(e) => SetPhoto(e.target.files[0])}
+                  style={{ display: "none" }} // Hide the input element
+                />
+              </label> */}
+            </Card>
           </Box>
-        </Card>
       </Box>
-      <Box>
-      {posts.map((row, key) => (
-        <SinglePost props={row} key={key} fetchPost={fetchPost} />
-      ))}
-    </Box>
-    </Box>
+      
+  
   );
 };
 

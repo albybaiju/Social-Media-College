@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, TextField, Typography } from "@mui/material";
+
+import { Button, Card, TextField, Typography,Box ,CardMedia} from "@mui/material";
 import { auth, db } from "../../config/FireBase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,58 +49,75 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <div className="card">
-        <div className="left-login">
-          <h1 className="h1">Hello world</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea ducimus
-            natus tempore. Laborum laboriosam odio, repudiandae cum ab sed
-            expedita?
-          </p>
-          <span>Dont have an account?</span>
-          <Link to="/Register">
-            <button className="button">Register</button>
-          </Link>
-        </div>
-        <div className="right-box-login">
-          <Card
+
+ 
+   <Box sx={{display:"flex",}}>
+
+        <Box sx={{width:"50%",display:"flex",alignItems:"center",flexDirection:"column",justifyContent:"center",mb:10,}}>
+      
+        <img style={{width:"400px",height:"400px"}} src="\Imags\dccc.png" alt="..."/>
+       
+     </Box>
+
+
+    <Box sx={{display:'flex',justifyContent:"center",alignItems:"center",width:"50%",height:"100vh"}}>
+  
+      <Card
             component="form"
+            elevation={3}
             onSubmit={handleSubmit}
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: 300,
-              height: 300,
-              gap: 3,
-              p: 10,
+              width: 320,
+              height: 480,
+              gap: 4,
+              pt:4,
+              pl:10,
+              pr:10,
+              pb:9
+           
             }}
           >
-            <Typography variant="h4">Login</Typography>
-            <TextField
-              id="standard-basic"
-              label="Email"
-              variant="standard"
+            <Box sx={{height:"100px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <Typography variant="h3" sx={{mb:"10px"}}>Login</Typography>
+            </Box>
+            <Box sx={{display:"flex",flexDirection:"column",gap:1}}>
+            <Typography sx={{fontSize:"18px"}}>Email</Typography>
+            <input 
+              type="text"
               value={email}
+              style={{border:"2px solid gray",borderRadius:"5px",p:2,height:"40px",fontSize:"17px"}}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <TextField
-              id="standard-password-input"
-              label="Password"
+            </Box> 
+
+            <Box sx={{display:"flex",flexDirection:"column",gap:1}}>
+            <Typography sx={{fontSize:"18px"}}>Password</Typography>  
+            <input
               type="password"
               autoComplete="current-password"
-              variant="standard"
+              style={{border:"2px solid gray",borderRadius:"5px",p:2,height:"40px",fontSize:"17px"}}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+            </Box>
+          
 
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={{borderRadius:"20px"}}>
               Login
             </Button>
+            <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',flexDirection:"column",gap:10}}>
+            <Link to="/Forgottpassword">
+            <Typography>Forgotten password ?</Typography>
+            </Link>
+            <Link to="/Register" style={{textDecoration:"none",width:"100%"}}>
+            <Button variant="outlined" sx={{width:"100%",borderRadius:"20px"}}>Create new account</Button>
+            </Link>
+            </Box>
           </Card>
-        </div>
-      </div>
-    </div>
+    </Box>
+   </Box>
   );
 };
 

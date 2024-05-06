@@ -1,4 +1,5 @@
-
+import React from 'react'
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -8,56 +9,45 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { auth } from "../../../config/FireBase";
+import  { useEffect, useState } from "react";
+import { auth } from '../../config/FireBase';
 import { sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
-const ChangePassword = () => {
+
+const Forgottpassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  
 
-  const sendEmail = () => {
-    const user = auth.currentUser;
-    const useremail= user.email
-    console.log(user);
-    if(useremail === email){      
-      sendPasswordResetEmail(auth, email)
-      .then(() => {
-        alert("Verification sent")
-        navigate("../../../");
-        setEmail("")
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        alert(errorCode)
-      })
+  const sendEmail = () =>{
 
-    }
-    else{
-      alert ("Your Email doesn't Match");
-    }
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+      alert("Verification email has sent")
+      navigate('../../')
+    })
+  
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
 
-  };
+  }
 
-  // const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  // const handleMouseDownPassword = (event) => {
-  //   event.preventDefault();
-  // };
 
-  // const handleSubmit = async() => {
-  //    console.log("helooo")
-  // }
+
+  
   return (
-    <Box>
+    <div>
+
+<Box>
       <Typography variant="h4" sx={{ m:2 ,fontWeight:"bold" }}>
-        Change Password{" "}
+        Forgott Password{" "}
       </Typography>
       <Box sx={{display:"flex",justifyContent:"center",padding:10}}>
-      <Card elevation={3} sx={{ m: 2, width: "700px" }} component="form">
+      <Card elevation={3} sx={{ m: 2, width: "450px" }} component="form">
         <CardContent
           sx={{
             mt: 1,
@@ -89,7 +79,16 @@ const ChangePassword = () => {
       </Box>
       
     </Box>
-  );
-};
+    
 
-export default ChangePassword;
+
+
+
+
+
+
+    </div>
+  )
+}
+
+export default Forgottpassword

@@ -8,7 +8,13 @@ import Sidebar from "./Components/Sidebar/sidebar";
 import Navbar from "./Components/Navbar/navbar";
 import './Styleapp.css'
 import Club from "./Club";
-
+import AddSections from "./AddSections";
+import Widgets from "./Widgets/Widgets";
+import ManageUsers from "./Manage Users/ManageUsers";
+import ManageClubs from "./Manage CLubs/ManageClubs";
+import UserDetails from "./UserDetails/UserDetails";
+import SinglePostAd from "./SinglePostAd";
+import ClubView from "./Manage CLubs/ClubView";
 
 const App = () => {
   return (
@@ -20,11 +26,20 @@ const App = () => {
         <Navbar/>
         <div className="routes">
         <Routes>
+           <Route path="/" element={<Widgets/>}/>
           <Route path="/District" element={<District/>}/>
           <Route path="/Place" element={<Place/>}/>
           <Route path="/Category" element={<Category/>}/>
           <Route path="/Subcategory" element={<Subcategory/>}/>
           <Route path="/Club" element={<Club/>}/>
+          <Route path="/AddSections" element={<AddSections/>}/>
+          <Route path="/ManageUsers" element={<ManageUsers/>}/>
+          <Route path="/ManageClubs" element={<ManageClubs/>}/>
+          <Route path="/UserDetails/:id" element={<UserDetails/>}/>
+          <Route path="/SinglePostAd" element={<SinglePostAd/>}/>
+          <Route path="/ClubView/:id" element={<ClubView/>}/>
+
+
 
 
         </Routes>

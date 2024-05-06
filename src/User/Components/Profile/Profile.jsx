@@ -15,6 +15,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   serverTimestamp,
   where,
@@ -26,7 +27,8 @@ import { db, storage } from "../../../config/FireBase";
 import SinglePost from "../SinglePost/SinglePost";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import styled from "@emotion/styled";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+
 
 
 const Profile = () => {
@@ -71,11 +73,9 @@ const Profile = () => {
       setEditandPost(true);
     } 
   };
-  console.log(cover);
-  console.log(photo);
 
   const fetchPost = async () => {
-    const q = query(collection(db, "Posts"), where("user_id", "==", id));
+    const q = query(collection(db, "Posts"), where("user_id", "==", id),orderBy("post_time","desc"));
 
     const querySnapshot = await getDocs(q);
     const qData = querySnapshot.docs.map((doc) => ({
@@ -138,33 +138,46 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const uid= sessionStorage.getItem('uid')
 
-    const uid = sessionStorage.getItem("uid");
+    if(photos != ""){
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+  
+      const uniqueFileName = generateUniqueFileName(uid, photo.name);
+      const storageRef = ref(storage, "images/" + uniqueFileName);
+      await uploadBytesResumable(storageRef, photo, metadata);
+      const url = await getDownloadURL(storageRef).then((downloadURL) => {
+        return downloadURL;
+      });
 
-    const metadata = {
-      contentType: "image/jpeg",
+      const timestamp = serverTimestamp();
+  
+  
+      await addDoc(collection(db, "Posts"), {
+        post_caption: caption,
+        post_photo: url,
+        user_id: uid,
+        post_time: timestamp,
+      });
+  
+      SetPhoto("");
+      SetCaption("");
+      fetchPost();
     }
 
+    else{
+      const timestamp = serverTimestamp();
+      await addDoc(collection(db, "Posts"), {
+        post_caption: caption,
+        user_id: uid,
+        post_time: timestamp,
+      });
+      SetCaption("");
+      fetchPost();
    
-   const uniqueFileName = generateUniqueFileName(uid, photos.name) 
-    const storageRef = ref(storage, "images/" + uniqueFileName)
-    await uploadBytesResumable(storageRef, photos, metadata)
-    const url = await getDownloadURL(storageRef).then((downloadURL) => {
-      return downloadURL;
-    });
-
-    const timestamp = serverTimestamp();
-
-    await addDoc(collection(db, "Posts"), {
-      post_caption: caption,
-      post_photo: url,
-      user_id: uid,
-      post_time: timestamp,
-    });
-
-    SetPhoto("");
-    SetCaption("");
-    fetchPost();
+    }
   };
 
 
@@ -174,7 +187,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{    width: "786px",
+      marginLeft: "-17px",
+      marginTop: "-14px"}}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Card sx={{ m: 1, objectFit: "cover", height: "500px" }}>
           <Box>
@@ -194,26 +209,31 @@ const Profile = () => {
               sx={{
                 position: "absolute",
                 top: 340,
-                left: 310,
-                width: 130,
-                height: 130,
-                border: "3px solid white",
+                left: 609,
+                width: 132,
+                height: 132,
+                border: "5px solid white"
               }}
             />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ mt: 10, ml: 6 }}>
-              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            <Box sx={{mt:13,width:"587px",display:"flex",justifyContent:"center",pl:"101px"}}>
+
+
+          
+            <Box sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 {username}
               </Typography>
 
-              <Box sx={{ mt: 1 }}>
+              <Box sx={{ display:"flex",justifyContent:"center" }}>
                 <Typography>
                 {bio}
                 </Typography>
               </Box>
             </Box>
-            <Box sx={{ m: 3 }}>
+            </Box>
+            <Box sx={{mt:1,mr:1,height:"40px",padding:1 }}>
               {editandpost && (
                 <Link
                   to={`/User/Editprofile/${id}`}
@@ -228,73 +248,82 @@ const Profile = () => {
           </Box>
         </Card>
         {editandpost ? 
-        
+         <Box
+         sx={{
+           display: "flex",
+           alignItems: "center",
+           justifyContent: "center",
+         }}
+       > 
         <Card
-        sx={{
-          m:1,
-          height: "130px",
-          borderRadius: "10px",
-          display: "flex",
-          justifyContent:"center"
-        }}
-        elevation={3}
-      >
-      
-        <Box
-          sx={{
-            m: 5,
-            ml: 10,
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-          component="form"
-          onSubmit={handleSubmit}
-        >
-          <Box>
-            <Avatar src="" alt="" />
-          </Box>
+        component="form"
+        onSubmit={handleSubmit}
+         sx={{
+           display: "flex",
+           alignItems: "center",
+           justifyContent: "center",
+           gap: "10px",
+           height: 100,
+           width: "96%",
+           p: 1,
+         }}
+       >
+         <Box sx={{ml:5}}>
+           <Avatar src={photo} alt="" sx={{width:50,height:50}} />
+         </Box>
 
-          <Box
-            sx={{
-              width: "420px",
-              minHeight: "30px",
-              border: "1px solid",
-              pl: 4,
-              pt: 1,
-              pb: 1,
-              p: 2,
-              borderRadius: "50px",
-            }}
-          >
-            <Input
-              onChange={(e) => SetCaption(e.target.value)}
-              placeholder="whats on your mind"
-              value={caption}
-              sx={{ width: "390px", border: "none", ml: "10px" }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    component="label"
-                    onChange={(e) => SetPhoto(e.target.files[0])}
-                  >
-                    <AttachFileIcon />
-                    <VisuallyHiddenInput type="file" />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box>
+         <Box
+           sx={{
+             width: "400px",
+             minHeight: "30px",
+             borderRadius: "25px",
+             pl: 3,
+             pr: 3,
+             pb: 1,
+             pt: 2,
+             backgroundColor: "#EAEAEA",
+             position: "relative",
+           }}
+         >
+           <Input
+             onChange={(e) => SetCaption(e.target.value)}
+             placeholder="whats on your mind..."
+             value={caption}
+             sx={{ width: "398px", border: "none" }}
+             endAdornment={
+               <label htmlFor="upload-photo">
+                 <CameraAltOutlinedIcon
+                   sx={{
+                     cursor: "pointer",
+                     border: "1px solid",
+                     padding: 0.5,
+                     borderRadius: "10px",
+                     transition: "background-color 0.3s ease",
+                     "&:hover": {
+                       backgroundColor: "#DEDADA"
+                     }
+                   }}
+                 />
+           
+                 <input
+                   id="upload-photo"
+                   type="file"
+                   onChange={(e) => SetPhoto(e.target.files[0])}
+                   style={{ display: "none" }}
+                 />
+               </label>
+             }
+           />
+         </Box>
 
-          <Button variant="contained" endIcon={<SendIcon />} type="submit">
-            POST
-          </Button>
-        </Box>
-      </Card> : <></>}
+         <Button variant="contained" type="submit" sx={{width:100,borderRadius:"10px"}}>
+           POST
+         </Button>
+       </Card> </Box>: <></>}
        
       </Box>
       <Box>
-      <Box>
+      <Box sx={{mt:1}}>
       {posts.map((row, key) => (
         <SinglePost props={row} key={key} fetchPost={fetchPost}/>
       ))}

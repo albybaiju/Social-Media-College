@@ -2,7 +2,7 @@
 
 .login{
     height: 100vh;
-    background: linear-gradient(rgb(101, 95, 95),rgba(84, 56, 56, 0.796)),url("C:\Users\user\Documents\5 semester\it an env\unnamed.jpg");
+    background: linear-gradient(rgb(101, 95, 95),rgba(84, 56, 56, 0.796));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,14 +42,10 @@
 }
 
 .button{
-    width: 50%;
-    height: 40px;
-    border-radius: 50px;
+    width: 100%;
+    border-radius: 20px;
+    background: linear-gradient(#00fff2,#FF02FF);
    
-    font-size: 17px;
-    font-weight: bold;
-
-    cursor: pointer;
    
 }
 

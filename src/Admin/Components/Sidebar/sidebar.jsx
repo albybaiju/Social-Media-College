@@ -8,9 +8,18 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 import PlaceTwoToneIcon from "@mui/icons-material/PlaceTwoTone";
 import AddLocationTwoToneIcon from "@mui/icons-material/AddLocationTwoTone";
-import { Link } from "react-router-dom";
-
+import { Link,useNavigate } from "react-router-dom";
+import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
+import {
+  Button,
+} from "@mui/material";
 const Sidebar = () => {
+  
+  const navigate = useNavigate()
+  const handleLogout = () =>{
+    sessionStorage.clear('aid')
+   navigate("../../../")
+}
   return (
     <div className="sidebar">
       <div className="top">
@@ -21,68 +30,52 @@ const Sidebar = () => {
         <ul className="ul">
           <p className="titles">MAIN</p>
           <li className="li">
-            <Link className="li" to="#" style={{ textDecoration: "none", color: "black" }}>
+            <Link className="li" to="/Admin" style={{ textDecoration: "none", color: "black" }}>
               <DashboardIcon/>
               <span className="span">Dashboard</span>
             </Link>
           </li>
           <p className="titles">DATAS</p>
+  
+ 
           <li className="li">
             <Link
             className="li"
-              to="/Admin/district"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <AddLocationTwoToneIcon className="icons" />
-              <span className="span">District</span>
-            </Link>
-          </li>
-          <li className="li">
-            <Link
-            className="li"
-              to="/Admin/Place"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <PlaceTwoToneIcon className="icons" />
-              <span className="span">Place</span>
-            </Link>
-          </li>
-          <li className="li">
-            <Link
-            className="li"
-              to="/Admin/Category"
+              to="/Admin/ManageClubs"
               style={{ textDecoration: "none", color: "black" }}
             >
               <CategoryTwoToneIcon className="icons" />
-              <span className="span">Category</span>
+              <span className="span">Manage Clubs</span>
             </Link>
-          </li>
+          </li> 
+          
           <li className="li">
             <Link
             className="li"
-              to="/Admin/Subcategory"
-              style={{ textDecoration: "none", color: "black" }}
+              to="/Admin/ManageUsers"
+              style={{ textDecoration: "none", color: "black"}}
             >
               <CategoryTwoToneIcon className="icons" />
-              <span className="span">SubCategory</span>
+              <span className="span">Manage Users</span>
+            </Link>
+          </li> 
+         
+
+          <li className="li">
+            <Link
+            className="li"
+              to="/Admin/Club"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <GroupsTwoToneIcon className="icons" />
+              <span className="span">Add Clubs</span>
             </Link>
           </li>
-          <p className="titles">USER</p>
           <li className="li">
-            <NotificationsNoneTwoToneIcon className="icons" />
-            <span className="span">Notifications</span>
-          </li>
-          <li className="li">
-            <AccountCircleTwoToneIcon className="icons" />
-            <span className="span">Profile</span>
-          </li>
-          <li className="li">
-            <SettingsTwoToneIcon className="icons" />
-            <span className="span">Settings</span>
-          </li>
-          <li className="li">
+      
+
             <LogoutTwoToneIcon className="icons" />
-            <span className="span">Logout</span>
+            <Button variant="outlined"  onClick={handleLogout} >Logout</Button>
           </li>
         </ul>
       </div>

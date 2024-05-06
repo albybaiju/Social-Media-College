@@ -5,6 +5,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../config/FireBase";
 import SinglePost from "../Components/SinglePost/SinglePost";
 import { Box } from "@mui/material";
+import Addpost from "../AddPost/Addpost";
 
 const Home = () => {
   const [posts, SetPost] = useState([]);
@@ -80,6 +81,7 @@ const Home = () => {
 
     SetPost(joinedData);
     console.log(joinedData);
+  
   };
 
   useEffect(() => {
@@ -88,10 +90,10 @@ const Home = () => {
   return (
     <div className="home">
       <div>
-        <Stories />
-      </div>
-      <div>
         <Box>
+          <Addpost/>
+        </Box>
+        <Box sx={{mt:3}}>
           {posts.map((row, key) => (
             <SinglePost props={row} key={key} fetchPost={fetchPost}/>
           ))}

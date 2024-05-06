@@ -21,6 +21,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   where,
 } from "firebase/firestore";
 import { db, storage } from "../../../config/FireBase";
@@ -30,6 +31,8 @@ import { Link } from "react-router-dom";
 import { deleteObject, ref } from "firebase/storage";
 
 const SinglePost = ({ props, fetchPost }) => {
+
+  
   const [comment, SetComment] = useState("");
   const [like, SetLike] = useState("");
   const [clubname, setClubname] = useState("");
@@ -39,17 +42,34 @@ const SinglePost = ({ props, fetchPost }) => {
   const [commentgr, setCommentgr] = useState("");
   const [checkd, setCheckD] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [checkphoto, checkPhoto] = useState(false);
 
+
+
+  const checkPhotoinprops = () =>{
+
+    console.log(props);
+
+    const fieldname = "post_photo"
+    const data = props;
+    if(fieldname in data){
+      checkPhoto(true)
+    }
+  }
+
+ 
   const deletePost = async (id) => {
-    const snapShotData = await getDoc(doc(db, "Posts", id));
-    const postData = snapShotData.data();
-    const storageReference = postData.post_photo;
-    
-    // Create a reference to the file to delete
+
+    if(checkphoto){
+
+      const snapShotData = await getDoc(doc(db, "Posts", id));
+      const postData = snapShotData.data();
+      const storageReference = postData.post_photo;
+        // Create a reference to the file to delete
     const StorageRef = ref(storage, storageReference);
 
-    // Delete the file
-    deleteObject(StorageRef)
+      // Delete the file
+      deleteObject(StorageRef)
       .then(() => {
         alert("Post Deleted")
       })
@@ -62,6 +82,20 @@ const SinglePost = ({ props, fetchPost }) => {
 
     await deleteDoc(doc(db, "Posts", id));
     await fetchPost();
+    }
+
+    else{
+      await deleteDoc(doc(db, "Posts", id));
+      alert("Post is deleted")
+      await fetchPost();
+    }
+    
+    
+    
+    
+  
+
+
   };
 
   const handleClick = (event) => {
@@ -108,9 +142,13 @@ const SinglePost = ({ props, fetchPost }) => {
 
   const addLike = async (id) => {
     const uid = sessionStorage.getItem("uid");
+    const timestamp = serverTimestamp();
+
     await addDoc(collection(db, "Likes"), {
       post_id: id,
       user_id: uid,
+      like_time:timestamp,
+      post_userid:props.userInfo.id
     });
 
     SetLike(true);
@@ -184,6 +222,7 @@ const SinglePost = ({ props, fetchPost }) => {
     fetchLikecount();
     fetchCommentcount();
     checkDelete();
+    checkPhotoinprops()
   }, [fetchData]);
   return (
     <Box>
@@ -241,18 +280,26 @@ const SinglePost = ({ props, fetchPost }) => {
             </div>
             <div className="content">
               <p>{props.post_caption}</p>
+
+              {checkphoto ? 
+              
               <CardMedia
-                image={props.post_photo}
-                sx={{
-                  width: "100%",
-                  height: "490px",
-                  borderRadius: "5px",
-                  objectFit: "cover",
-                  cursor: "pointer",
-                }}
-                alt="//"
-                // onDoubleClickCapture ={()=>addLikePic(props.id)}
-              />
+              image={props.post_photo}
+              sx={{
+                width: "100%",
+                height: "490px",
+                borderRadius: "5px",
+                objectFit: "cover",
+                cursor: "pointer",
+              }}
+            />
+               
+        
+               :""
+            
+              
+            }
+          
               <div className="like">
                 <div className="itempost">
                   {like ? (

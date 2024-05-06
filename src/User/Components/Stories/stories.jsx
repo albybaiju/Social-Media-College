@@ -151,15 +151,15 @@ const Stories = () => {
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(userStoryData);
+    console.log(userStoryData)
     if (userStoryData == 0) {
-      setOwnStory(false);
+      setOwnStory(false)
     } else {
-      setOwnStory(true);
-      setStory(userStoryData);
+      setOwnStory(true)
+      setStory(userStoryData)
     }
     // Assuming you have a field like 'createdAt' in your story data.
-    const currentDate = new Date();
+    const currentDate = new Date()
     userStoryData.forEach((story) => {
       const storyCreationDate = story.Story_time.toDate(); // Assuming 'createdAt' is a Firestore timestamp field.
       const timeDifference = currentDate - storyCreationDate;
@@ -201,7 +201,7 @@ const Stories = () => {
     <>
       <Box
         sx={{
-          width: "800px",
+          width: "720px",
           overflowX: "scroll",
           display: "flex",
           gap: "10px",
@@ -253,8 +253,6 @@ const Stories = () => {
                 <Box
                   sx={{
                     height: "218px",
-                    display: "flex",
-                    alignItems: "center",
                   }}
                 >
                   <CardMedia
@@ -263,8 +261,7 @@ const Stories = () => {
                     className="imgstory"
                     key={key}
                     sx={{
-                      width: "112px",
-                      height: "148px",
+                      height:'155px',
                       borderRadius: "0px ",
                       objectFit: "cover",
                       p: 3,
@@ -369,9 +366,11 @@ const Stories = () => {
             {stories.map((row, key) => (
               <Card
                 sx={{
+                  display:"flex",
+                  justifyContent:"center",
                   width: 150,
                   height: 195,
-                  border: "4px solid green",
+                  border: "4px double green",
                   borderRadius: "10px",
                   margin: "10px",
                   position: "relative",
@@ -379,18 +378,24 @@ const Stories = () => {
                   objectFit: "cover",
                 }}
               >
+                <Box>
                 <CardMedia
                   image={row.Story_photo}
                   alt="."
                   key={key}
                   sx={{
-                    width: "112px",
-                    height: "148px",
-                    borderRadius: "0px ",
-                    objectFit: "cover",
-                    p: 3,
+                    objectFit:"cover",
+                    display:"flex",
+                    justifyContent:"center",
+                    width:"150px",
+                    height:"150px",
+                    filter: "blur(2px)" // Apply blur effect
+                    
                   }}
                 />
+
+                </Box>
+               
               </Card>
             ))}
           </>

@@ -8,13 +8,14 @@
 
 .card-register{
   width: 400px;
-  height: 500px;
+  height: 600px;
   margin-left: 200px;
   display: flex;
   flex-direction:column ;
   justify-content: right;
   padding: 40px;
   gap: 40px;
+  
 }
 
 .textfields{

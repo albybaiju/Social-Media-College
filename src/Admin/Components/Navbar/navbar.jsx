@@ -11,28 +11,8 @@ const Navbar = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
-          <input type="text" placeholder="Search..."  className="barnav"/>
-          <SearchIcon  />
-        </div>
-        <div className="items">
-          <div className="item">
-            <LanguageIcon className="iconad" />
-            English
-          </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="iconad" />
-            <div className="counter">2</div>
-          </div>
-          <div className="item">
-            <NotificationsOutlinedIcon className="iconad" />
-            <div className="counter">1</div>
-          </div>
-          <div className="item">
-            <ListOutlinedIcon className="iconad" />
-          </div>
-          <div className="item">
-          <AccountCircleIcon className="iconad"/> 
-          </div>
+         <img style={{width:165,height:60,marginLeft:450}} src="\Imags\dcccedog.png" alt="." />
+        
         </div>
       </div>
     </div>
